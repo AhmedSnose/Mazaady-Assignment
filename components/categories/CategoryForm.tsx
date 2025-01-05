@@ -9,9 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CategoryService } from "@/services/CategoryService";
 import { Category, Property } from "@/types/CategoryType";
-import { Loader2 } from "lucide-react";
+import { Loader2 } from 'lucide-react';
 import { useState } from "react";
 import MainCard from "../shared/MainCard";
 import {
@@ -20,7 +19,7 @@ import {
 } from "../ui/dialog";
 import RenderProperties from "./RenderPropertiesProps";
 import ShowSubmittedData from "./ShowSubmittedData";
-const categoryService = new CategoryService();
+import { getProperties } from "@/app/actions/categories";
 
 export default function CategoryForm({
   allMainCategoriesAtTheFirst: mainCategories,
@@ -29,18 +28,20 @@ export default function CategoryForm({
 }) {
   const [subCategories, setSubCategories] = useState<Category[]>([]);
   const [properties, setProperties] = useState<Property[]>([]);
-  const [selectedValues, setSelectedValues] = useState<Record<string, string>>(
-    {}
-  );
+  const [selectedValues, setSelectedValues] = useState<Record<string, string>>({});
   const [isLoadingProperties, setIsLoadingProperties] = useState(false);
-  const [submittedData, setSubmittedData] = useState<Record<string, string>[]>(
-    []
-  );
+  const [submittedData, setSubmittedData] = useState<Record<string, string>[]>([]);
+
   const fetchProperties = async (categoryId: number) => {
-    setIsLoadingProperties(true);
-    const properties = await categoryService.fetchProperties(categoryId);
-    setProperties(properties);
-    setIsLoadingProperties(false);
+    try {
+      setIsLoadingProperties(true);
+      const fetchedProperties = await getProperties(categoryId);
+      setProperties(fetchedProperties);
+    } catch (error) {
+      console.error("Error fetching properties:", error);
+    } finally {
+      setIsLoadingProperties(false);
+    }
   };
 
   const fetchSubCategories = (categoryId: number) => {
@@ -70,13 +71,13 @@ export default function CategoryForm({
 
   const handlePropertyChange = (propertyName: string, value: string) => {
     setSelectedValues((prev) => ({ ...prev, [propertyName]: value }));
-  };  
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const submittedProperties = Object.keys(selectedValues).map((key) => {
-      let valueName = selectedValues[key]; // Default to the raw value
+      let valueName = selectedValues[key];
       let category;
 
       if (key === "mainCategory") {
@@ -144,7 +145,7 @@ export default function CategoryForm({
                   </span>
                 </SelectTrigger>
                 <SelectContent className="max-h-60 overflow-y-auto">
-                  {subCategories.map((category, i) => (
+                  {subCategories.map((category) => (
                     <SelectItem
                       key={category.id}
                       value={category.id.toString()}
