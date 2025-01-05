@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
-const API_BASE_URL = process.env.API_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL;
+const MAZAADY_PRIVATE_KEY = process.env.NEXT_PUBLIC_MAZAADY_PRIVATE_KEY || process.env.MAZAADY_PRIVATE_KEY;
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -14,7 +15,7 @@ export async function GET(request: Request) {
       API_BASE_URL + `/api/v1/properties?cat=${categoryId}`,
       {
         headers: {
-          "private-key": process.env.MAZAADY_PRIVATE_KEY || "",
+          "private-key": MAZAADY_PRIVATE_KEY || "",
         },
       }
     );
