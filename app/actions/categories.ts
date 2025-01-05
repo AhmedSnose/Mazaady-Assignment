@@ -17,7 +17,12 @@ export async function getAllCategories(): Promise<Category[]> {
     console.log(baseUrl, "baseUrl");
 
     const url = new URL("/api/categories", baseUrl);
-    const response = await fetch(url.toString());
+    const response = await fetch(url.toString(), {
+      headers: {
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

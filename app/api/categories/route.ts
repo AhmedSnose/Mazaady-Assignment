@@ -5,11 +5,17 @@ export async function GET() {
     const API_BASE_URL = process.env.API_BASE_URL;
     const MAZAADY_PRIVATE_KEY = process.env.MAZAADY_PRIVATE_KEY;
 
+    console.log("API_BASE_URL:", API_BASE_URL);
+    console.log("MAZAADY_PRIVATE_KEY set:", !!MAZAADY_PRIVATE_KEY);
+
     if (!API_BASE_URL || !MAZAADY_PRIVATE_KEY) {
       throw new Error("Missing required environment variables");
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/v1/get_all_cats`, {
+    const fullUrl = `${API_BASE_URL}/api/v1/get_all_cats`;
+    console.log("Fetching from:", fullUrl);
+
+    const response = await fetch(fullUrl, {
       headers: {
         "private-key": MAZAADY_PRIVATE_KEY,
       },
@@ -20,9 +26,15 @@ export async function GET() {
     }
 
     const data = await response.json();
-    return NextResponse.json(data?.data?.categories);
+    console.log("API Response:", JSON.stringify(data, null, 2));
+
+    if (!data?.data?.categories || !Array.isArray(data.data.categories)) {
+      throw new Error("Invalid data format received from API");
+    }
+
+    return NextResponse.json(data.data.categories);
   } catch (error) {
-    console.error("Error fetching main categories:", error);
+    console.error("Error in /api/categories:", error);
     return NextResponse.json({ error: "Failed to fetch categories" }, { status: 500 });
   }
 }
