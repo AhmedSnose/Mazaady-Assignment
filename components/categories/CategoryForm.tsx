@@ -20,6 +20,8 @@ import {
 } from "../ui/dialog";
 import RenderProperties from "./RenderPropertiesProps";
 import ShowSubmittedData from "./ShowSubmittedData";
+import { CategoryService } from '@/services/CategoryService';
+const categoryService = new CategoryService();
 
 export default function CategoryForm() {
   const [mainCategories, setMainCategories] = useState<Category[]>([]);
@@ -35,7 +37,7 @@ export default function CategoryForm() {
     async function fetchCategories() {
       try {
         setIsLoadingCategories(true);
-        const categories = await getAllCategories();
+        const categories = await categoryService.getAllCategories();
         console.log("Fetched categories:", categories);
         setMainCategories(categories);
       } catch (err) {
