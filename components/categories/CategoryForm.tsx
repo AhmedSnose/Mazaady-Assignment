@@ -22,7 +22,7 @@ import ShowSubmittedData from "./ShowSubmittedData";
 import { getProperties } from "@/app/actions/categories";
 
 export default function CategoryForm({
-  allMainCategoriesAtTheFirst: mainCategories,
+  allMainCategoriesAtTheFirst: mainCategories=[],
 }: {
   allMainCategoriesAtTheFirst: Category[];
 }) {

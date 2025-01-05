@@ -1,3 +1,4 @@
+"use server"
 import CategoryForm from '@/components/categories/CategoryForm'
 import { getAllCategories } from '../actions/categories'
 
