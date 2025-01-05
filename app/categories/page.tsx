@@ -1,4 +1,4 @@
-"use server"
+export const revalidate = 3600;
 import CategoryForm from '@/components/categories/CategoryForm'
 import { getAllCategories } from '../actions/categories'
 

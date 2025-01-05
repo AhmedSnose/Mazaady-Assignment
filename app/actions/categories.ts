@@ -24,10 +24,14 @@ export async function getAllCategories(): Promise<Category[]> {
     }
 
     const data = await response.json();
+    if (!data || !Array.isArray(data)) {
+      throw new Error("Invalid data format received from API");
+    }
+
     return data;
   } catch (error) {
     console.error("Error fetching main categories:", error);
-    throw error;
+    return []; // Return an empty array or handle the error as appropriate for your application
   }
 }
 
@@ -36,7 +40,7 @@ export async function getProperties(categoryId: number): Promise<Property[]> {
     const baseUrl = getBaseUrl();
 
     const url = new URL("/api/properties", baseUrl);
-    
+
     url.searchParams.append("cat", categoryId.toString());
 
     const response = await fetch(url.toString());
