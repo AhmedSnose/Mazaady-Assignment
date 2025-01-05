@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL;
-    const MAZAADY_PRIVATE_KEY = process.env.NEXT_PUBLIC_MAZAADY_PRIVATE_KEY || process.env.MAZAADY_PRIVATE_KEY;
+    const API_BASE_URL = process.env.API_BASE_URL;
+    const MAZAADY_PRIVATE_KEY = process.env.MAZAADY_PRIVATE_KEY;
 
     console.log("API_BASE_URL:", API_BASE_URL);
     console.log("MAZAADY_PRIVATE_KEY set:", !!MAZAADY_PRIVATE_KEY);

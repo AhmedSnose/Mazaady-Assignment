@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.API_BASE_URL;
-const MAZAADY_PRIVATE_KEY = process.env.NEXT_PUBLIC_MAZAADY_PRIVATE_KEY || process.env.MAZAADY_PRIVATE_KEY;
+const API_BASE_URL = process.env.API_BASE_URL;
+const MAZAADY_PRIVATE_KEY = process.env.MAZAADY_PRIVATE_KEY;
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)

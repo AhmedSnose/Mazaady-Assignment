@@ -54,7 +54,7 @@ export default function CategoryForm() {
   const fetchProperties = async (categoryId: number) => {
     try {
       setIsLoadingProperties(true);
-      const fetchedProperties = await getProperties(categoryId);
+      const fetchedProperties = await categoryService.fetchProperties(categoryId);
       setProperties(fetchedProperties);
     } catch (error) {
       console.error("Error fetching properties:", error);
