@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Category, Property } from "@/types/CategoryType";
 import { Loader2 } from 'lucide-react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainCard from "../shared/MainCard";
 import {
   Dialog,
@@ -19,18 +19,33 @@ import {
 } from "../ui/dialog";
 import RenderProperties from "./RenderPropertiesProps";
 import ShowSubmittedData from "./ShowSubmittedData";
-import { getProperties } from "@/app/actions/categories";
+import { getAllCategories, getProperties } from "@/app/actions/categories";
 
-export default function CategoryForm({
-  allMainCategoriesAtTheFirst: mainCategories=[],
-}: {
-  allMainCategoriesAtTheFirst: Category[];
-}) {
+export default function CategoryForm() {
+  const [mainCategories, setMainCategories] = useState<Category[]>([]);
   const [subCategories, setSubCategories] = useState<Category[]>([]);
   const [properties, setProperties] = useState<Property[]>([]);
   const [selectedValues, setSelectedValues] = useState<Record<string, string>>({});
+  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
   const [isLoadingProperties, setIsLoadingProperties] = useState(false);
   const [submittedData, setSubmittedData] = useState<Record<string, string>[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchMainCategories = async () => {
+      try {
+        const categories = await getAllCategories();
+        setMainCategories(categories);
+      } catch (error) {
+        console.error("Error fetching main categories:", error);
+        setError("Failed to load categories. Please try again later.");
+      } finally {
+        setIsLoadingCategories(false);
+      }
+    };
+
+    fetchMainCategories();
+  }, []);
 
   const fetchProperties = async (categoryId: number) => {
     try {
@@ -39,6 +54,7 @@ export default function CategoryForm({
       setProperties(fetchedProperties);
     } catch (error) {
       console.error("Error fetching properties:", error);
+      setError("Failed to load properties. Please try again later.");
     } finally {
       setIsLoadingProperties(false);
     }
@@ -107,6 +123,19 @@ export default function CategoryForm({
 
     setSubmittedData(submittedProperties);
   };
+
+  if (isLoadingCategories) {
+    return (
+      <div className="flex items-center justify-center py-4">
+        <Loader2 className="h-6 w-6 animate-spin" />
+        <span className="ml-2">Loading categories...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <MainCard>{error}</MainCard>;
+  }
 
   return (
     <>

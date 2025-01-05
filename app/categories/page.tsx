@@ -1,14 +1,9 @@
-export const revalidate = 3600;
-import CategoryForm from '@/components/categories/CategoryForm'
-import { getAllCategories } from '../actions/categories'
+import CategoryForm from "@/components/categories/CategoryForm";
 
-export default async function CategoriesPage() {
-  const allMainCategories = await getAllCategories();
-  
+export default function CategoriesPage() {
   return (
     <div className="bg-white rounded-lg p-6 m-2">
-      <CategoryForm allMainCategoriesAtTheFirst={allMainCategories}/>
+      <CategoryForm />
     </div>
-  )
+  );
 }
-
