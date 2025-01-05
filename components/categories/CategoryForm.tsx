@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from 'react';
+import { getAllCategories, getProperties } from '@/app/actions/categories';
+import { Category, Property } from '@/types/CategoryType';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -9,9 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Category, Property } from "@/types/CategoryType";
 import { Loader2 } from 'lucide-react';
-import { useState, useEffect } from "react";
 import MainCard from "../shared/MainCard";
 import {
   Dialog,
@@ -19,7 +20,6 @@ import {
 } from "../ui/dialog";
 import RenderProperties from "./RenderPropertiesProps";
 import ShowSubmittedData from "./ShowSubmittedData";
-import { getAllCategories, getProperties } from "@/app/actions/categories";
 
 export default function CategoryForm() {
   const [mainCategories, setMainCategories] = useState<Category[]>([]);
@@ -32,19 +32,21 @@ export default function CategoryForm() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchMainCategories = async () => {
+    async function fetchCategories() {
       try {
+        setIsLoadingCategories(true);
         const categories = await getAllCategories();
+        console.log("Fetched categories:", categories);
         setMainCategories(categories);
-      } catch (error) {
-        console.error("Error fetching main categories:", error);
+      } catch (err) {
+        console.error("Error fetching categories:", err);
         setError("Failed to load categories. Please try again later.");
       } finally {
         setIsLoadingCategories(false);
       }
-    };
+    }
 
-    fetchMainCategories();
+    fetchCategories();
   }, []);
 
   const fetchProperties = async (categoryId: number) => {

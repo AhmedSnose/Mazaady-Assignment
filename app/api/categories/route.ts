@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
@@ -19,9 +19,12 @@ export async function GET() {
       headers: {
         "private-key": MAZAADY_PRIVATE_KEY,
       },
+      next: { revalidate: 0 }
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`API responded with status: ${response.status}, body: ${errorText}`);
       throw new Error(`API responded with status: ${response.status}`);
     }
 
