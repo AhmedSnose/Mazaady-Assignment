@@ -3,14 +3,19 @@ export class CategoryService {
     if (typeof window !== 'undefined') {
       return '';
     }
-    const BASE_URL = process.env.NEXT_PUBLIC_VERCEL_URL;
-    return BASE_URL;
+    if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`;
+    }
+    return process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
   }
 
   async getAllCategories() {
     try {
       const baseUrl = this.getBaseUrl();
       const response = await fetch(`${baseUrl}/api/categories`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       return data;
     } catch (error) {
@@ -23,6 +28,9 @@ export class CategoryService {
     try {
       const baseUrl = this.getBaseUrl();
       const response = await fetch(`${baseUrl}/api/properties?cat=${categoryId}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       return data;
     } catch (error) {
