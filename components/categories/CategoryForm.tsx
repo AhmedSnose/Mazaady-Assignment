@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { getAllCategories, getProperties } from '@/app/actions/categories';
 import { Category, Property } from '@/types/CategoryType';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -21,6 +20,7 @@ import {
 import RenderProperties from "./RenderPropertiesProps";
 import ShowSubmittedData from "./ShowSubmittedData";
 import { CategoryService } from '@/services/CategoryService';
+
 const categoryService = new CategoryService();
 
 export default function CategoryForm() {
@@ -38,7 +38,6 @@ export default function CategoryForm() {
       try {
         setIsLoadingCategories(true);
         const categories = await categoryService.getAllCategories();
-        console.log("Fetched categories:", categories);
         setMainCategories(categories);
       } catch (err) {
         console.error("Error fetching categories:", err);
@@ -66,15 +65,19 @@ export default function CategoryForm() {
 
   const fetchSubCategories = (categoryId: number) => {
     const category = mainCategories.find((cat) => cat.id === categoryId);
-    setSubCategories(category?.children || []);
+    const subCategories = category?.children || [];
+    setSubCategories(subCategories);
     setProperties([]);
 
-    if (category?.children?.length && category?.children[0].id) {
-      handleSubCategoryChange(category?.children[0].id.toString());
+    if (subCategories.length > 0) {
+      const firstSubCategory = subCategories[0];
+      handleSubCategoryChange(firstSubCategory.id.toString());
     }
+
     setSelectedValues((prev) => ({
+      ...prev,
       mainCategory: categoryId.toString(),
-      subCategory: "",
+      subCategory: subCategories[0]?.id.toString() || "",
     }));
   };
 
@@ -169,7 +172,7 @@ export default function CategoryForm() {
               <Label htmlFor="sub-category">Sub Category</Label>
               <Select
                 onValueChange={handleSubCategoryChange}
-                defaultValue={subCategories[0].id.toString()}
+                value={selectedValues.subCategory || subCategories[0]?.id.toString()}
               >
                 <SelectTrigger className="w-full mt-1 relative">
                   <SelectValue placeholder="Select sub-category" />
