@@ -9,7 +9,7 @@ import MainButton from "../shared/MainButton";
 import MainCard from "../shared/MainCard";
 import TabButton from "./TabButton";
 import ProductTabs from "./ProductTabs";
-import { getAllProducts } from "@/services/ProductService";
+import { getAllProducts } from "@/lib/services/ProductService";
 
 export default function ProductsSection() {
   const products = getAllProducts();
