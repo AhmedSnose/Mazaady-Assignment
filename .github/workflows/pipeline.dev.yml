@@ -18,7 +18,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js with pnpm Cache
         uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -36,7 +36,7 @@ jobs:
       - name: Type Check
         run: pnpm type-check
 
-      - name: Run Unit Tests with Coverage
+      - name: Run Unit Tests with Jest
         run: pnpm test -- --ci --coverage
 
   build:
@@ -47,7 +47,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js with pnpm Cache
         uses: actions/setup-node@v4
         with:
           node-version: 18
