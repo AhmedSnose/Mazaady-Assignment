@@ -1,0 +1,95 @@
+{
+  "11": [
+    {
+      "id": 1,
+      "name": "Brand",
+      "options": [
+        { "id": 101, "name": "Apple" },
+        { "id": 102, "name": "Samsung" },
+        { "id": 103, "name": "Google" },
+        { "id": 104, "name": "OnePlus" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Storage",
+      "options": [
+        { "id": 201, "name": "64GB" },
+        { "id": 202, "name": "128GB" },
+        { "id": 203, "name": "256GB" },
+        { "id": 204, "name": "512GB" }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Color",
+      "options": [
+        { "id": 301, "name": "Black" },
+        { "id": 302, "name": "White" },
+        { "id": 303, "name": "Blue" },
+        { "id": 304, "name": "Red" }
+      ]
+    }
+  ],
+  "12": [
+    {
+      "id": 4,
+      "name": "Brand",
+      "options": [
+        { "id": 401, "name": "Apple" },
+        { "id": 402, "name": "Dell" },
+        { "id": 403, "name": "HP" },
+        { "id": 404, "name": "Lenovo" }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "RAM",
+      "options": [{ "id": 501, "name": "8GB" }, { "id": 502, "name": "16GB" }, { "id": 503, "name": "32GB" }]
+    },
+    {
+      "id": 6,
+      "name": "Screen Size",
+      "options": [{ "id": 601, "name": "13 inch" }, { "id": 602, "name": "15 inch" }, { "id": 603, "name": "17 inch" }]
+    }
+  ],
+  "21": [
+    {
+      "id": 7,
+      "name": "Size",
+      "options": [
+        { "id": 701, "name": "S" },
+        { "id": 702, "name": "M" },
+        { "id": 703, "name": "L" },
+        { "id": 704, "name": "XL" }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Color",
+      "options": [
+        { "id": 801, "name": "Black" },
+        { "id": 802, "name": "White" },
+        { "id": 803, "name": "Blue" },
+        { "id": 804, "name": "Red" }
+      ]
+    }
+  ],
+  "22": [
+    {
+      "id": 9,
+      "name": "Size",
+      "options": [
+        { "id": 901, "name": "XS" },
+        { "id": 902, "name": "S" },
+        { "id": 903, "name": "M" },
+        { "id": 904, "name": "L" }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Style",
+      "options": [{ "id": 1001, "name": "Casual" }, { "id": 1002, "name": "Formal" }, { "id": 1003, "name": "Sport" }]
+    }
+  ]
+}

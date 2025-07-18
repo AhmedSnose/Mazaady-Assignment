@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Electronics",
+    "children": [{ "id": 11, "name": "Smartphones" }, { "id": 12, "name": "Laptops" }, { "id": 13, "name": "Tablets" }]
+  },
+  {
+    "id": 2,
+    "name": "Clothing",
+    "children": [
+      { "id": 21, "name": "Men's Clothing" },
+      { "id": 22, "name": "Women's Clothing" },
+      { "id": 23, "name": "Kids' Clothing" }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Home & Garden",
+    "children": [
+      { "id": 31, "name": "Furniture" },
+      { "id": 32, "name": "Kitchen" },
+      { "id": 33, "name": "Garden Tools" }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Sports",
+    "children": [{ "id": 41, "name": "Football" }, { "id": 42, "name": "Basketball" }, { "id": 43, "name": "Tennis" }]
+  }
+]
