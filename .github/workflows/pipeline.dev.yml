@@ -39,7 +39,7 @@ jobs:
       #   run: pnpm type-check
 
       - name: Run Unit Tests with Jest
-        run: pnpm test -- --ci --coverage
+        run: pnpm test -- --ci 
 
   build:
     runs-on: ubuntu-latest
